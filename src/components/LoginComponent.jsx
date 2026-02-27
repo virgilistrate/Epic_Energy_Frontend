@@ -2,8 +2,11 @@ import { Col, Container, Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
 const LoginComponent = () => {
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -25,6 +28,7 @@ const LoginComponent = () => {
       .then((data) => {
         localStorage.setItem("token", data.accessToken)
         console.log(data)
+        navigate("/home")
       })
       .catch((error) => {
         console.error("Error:", error)
@@ -32,9 +36,12 @@ const LoginComponent = () => {
   }
 
   return (
-    <Container className="justify-content-center">
+    <Container className="justify-content-center text-light">
       <Row className="justify-content-center">
-        <Col md={6} className="my-5 border rounded border-primary">
+        <Col
+          md={6}
+          className="my-5 border border-3 rounded-3 border-success bg-dark"
+        >
           <Form className="p-5" onSubmit={loginAcccess}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -44,7 +51,7 @@ const LoginComponent = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Form.Text className="text-muted">
+              <Form.Text className="text-light">
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
@@ -60,7 +67,7 @@ const LoginComponent = () => {
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="success" type="submit">
               Submit
             </Button>
           </Form>
